@@ -5,3 +5,4 @@ app = Flask(__name__)
 cors = CORS(app)
 
 import graduateBack.loginAndGetlines
+import graduateBack.getUserInfo

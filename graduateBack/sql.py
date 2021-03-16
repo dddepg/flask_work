@@ -5,8 +5,10 @@ import pymysql
 # 1. 连接数据库，
 def getConn():
     conn = pymysql.connect(
-        host='172.17.0.2',
-        port=3306,
+        # host='172.17.0.2',
+        # port=3306,
+        host='sh-cynosdbmysql-grp-b6j6byfw.sql.tencentcdb.com',
+        port=21143,
         user='root',
         password='MYdb20210208',
         db='my_graduate_design',

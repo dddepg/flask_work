@@ -17,6 +17,9 @@ def login():
     if (password == results[0]):
         res = {}
         res['result'] = "1"
+        res['userID']=results[0]
+        res['userPower']=results[3]
+        res['userTrueName']=results[4]
         response = Response(json.dumps(res))
         sql.closeCur(cur, conn)
         return response
