@@ -1,9 +1,8 @@
-import sql as sql
+import re
 
-conn = sql.getConn()
-cur = sql.getCur(conn)
-sql_word = "SELECT * FROM user WHERE id=%s"
-cur.execute(sql_word, 3)
-results = cur.fetchone()
-print(results)
-sql.closeCur(cur, conn)
+str="19121694537"
+# rest=re.split(r'(\w*)\@(.*)\.(com)',str)
+# print(rest)
+# print(rest[0]=="" and rest[4]=="" and rest[3]=="com")
+
+print(len(str))
