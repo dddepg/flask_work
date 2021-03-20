@@ -48,12 +48,46 @@ def newly():
     sql.closeCur(cur, conn)
     return response
 
+@app.route('/allnewly')
+def allnewly():
+    conn = sql.getConn()
+    cur = sql.getCur(conn)
+    sql_word = "select * from newly order by id desc"
+    cur.execute(sql_word)
+    results = cur.fetchall()
+    res = {}
+    reslist = list()
+    for row in results:
+        res["title"] = row[1]
+        res["URL"] = row[2]
+        reslist.append(res.copy())
+    response = Response(json.dumps(reslist))
+    sql.closeCur(cur, conn)
+    return response
+
 
 @app.route('/tread')
 def tread():
     conn = sql.getConn()
     cur = sql.getCur(conn)
     sql_word = "select * from tread order by id desc LIMIT 4"
+    cur.execute(sql_word)
+    results = cur.fetchall()
+    res = {}
+    reslist = list()
+    for row in results:
+        res["title"] = row[1]
+        res["URL"] = row[2]
+        reslist.append(res.copy())
+    response = Response(json.dumps(reslist))
+    sql.closeCur(cur, conn)
+    return response
+
+@app.route('/alltread')
+def alltread():
+    conn = sql.getConn()
+    cur = sql.getCur(conn)
+    sql_word = "select * from tread order by id desc"
     cur.execute(sql_word)
     results = cur.fetchall()
     res = {}

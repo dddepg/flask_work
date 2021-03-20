@@ -6,3 +6,4 @@ cors = CORS(app)
 
 import graduateBack.loginAndGetlines
 import graduateBack.getUserInfo
+import graduateBack.updata
