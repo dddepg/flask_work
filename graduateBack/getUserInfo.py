@@ -8,17 +8,25 @@ import re
 def userInfo():
     conn = sql.getConn()
     cur = sql.getCur(conn)
+    res = {}
     id = request.form["id"]
     sql_word = "SELECT usertele,useremail FROM user WHERE id=%s"
-    cur.execute(sql_word, id)
-    results = cur.fetchone()
-    res = {}
-    res['tele'] = results[0]
-    res['email'] = results[1]
-    response = Response(json.dumps(res))
-    sql.closeCur(cur, conn)
-    return response
-
+    try:
+        cur.execute(sql_word, id)
+        results = cur.fetchone()
+    except:
+        res['result']="2"
+        res['msg'] = "啊哦，数据库出错了"
+        response = Response(json.dumps(res))
+        sql.closeCur(cur, conn)
+        return response
+    else:
+        res['result']="1"
+        res['tele'] = results[0]
+        res['email'] = results[1]
+        response = Response(json.dumps(res))
+        sql.closeCur(cur, conn)
+        return response
 
 @app.route('/changeUserInfo', methods=["POST"])
 def changeUserInfo():

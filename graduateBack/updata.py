@@ -7,7 +7,7 @@ from pypinyin import lazy_pinyin
 import random, re
 
 UPLOAD_FOLDER = '.\graduateBack\static\pdf'
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg'}
 ALPHABET = 'abcdefghijklmnopqrstuvwxyz1234567890'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -81,21 +81,3 @@ def changeFileName(filenaem):
     rest = re.split(r'(.*)\.(.*)', filenaem)
     newname = rest[1] + random.choice(ALPHABET) + "." + rest[2]
     return newname
-
-
-
-@app.route('/updataPDFtest', methods=["POST"])
-def allowed_file_test():
-    username = request.form["username"]
-    name = '.' in username and username.rsplit(
-        '.', 1)[1].lower() in ALLOWED_EXTENSIONS
-    if no_chinese(username):
-        filename = secure_filename(username)
-    else:
-        filename = secure_filename(''.join(lazy_pinyin(username)))
-    # fn=secure_filename(username)
-    res = {}
-    res['result'] = name
-    res['name'] = filename
-    response = Response(json.dumps(res))
-    return response
