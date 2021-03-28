@@ -1,5 +1,4 @@
 from flask import Flask, request, Response, json
-from flask import render_template
 from graduateBack import app
 import graduateBack.sql as sql
 import re
@@ -131,7 +130,7 @@ def znORen(string):
             iszn=False
     if not iszn:
         for en in string:
-            if ord(en)<65 or 90<ord(en)<97 or ord(en)>122
+            if ord(en)<65 or 90<ord(en)<97 or ord(en)>122:
                 isen=False
         if isen:
             return 1

@@ -21,7 +21,7 @@ def addpdfInfo():
     # 1：私人观看
     # 2：限制公开（未完成）
     paperType = request.form["paperType"]
-
+    # 1-6:论文分类类型
     paperKeyWord = [request.form["key1"], request.form["key2"],
                     request.form["key3"], request.form["key4"], request.form["key5"]]
     try:
@@ -45,5 +45,6 @@ def addpdfInfo():
     else:
         sql.closeCur(cur, conn)
         res['result'] = "1"
+        res['msg'] = "上传成功"
         response = Response(json.dumps(res))
         return response
