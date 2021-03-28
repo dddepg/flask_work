@@ -36,6 +36,16 @@ def changeUserInfo():
     id = request.form["id"]
     tele = request.form["tele"]
     email = request.form["email"]
+    name = request.form["name"]
+    # 0：中文名
+    # 1：英文名
+    # 2：格式错
+    check=znORen(name)
+    if check==2:
+        res['result'] = "2"
+        res['msg']="请输入正确的姓名"
+        response = Response(json.dumps(res))
+        return response
     check=checkInfoRight(tele,email)
     # 0：电话长度和邮箱都符合标准
     # 1：电话长度符合，但邮箱不是QQ或163
@@ -45,8 +55,8 @@ def changeUserInfo():
     # 5：电话和邮箱都不符，
     if check==0:
         try: 
-            sql_word = "UPDATE user SET usertele = %s ,useremail =%s WHERE id=%s"
-            cur.execute(sql_word, [tele, email, id])
+            sql_word = "UPDATE user SET usertele = %s ,useremail =%s ,userTrueName=%s WHERE id=%s"
+            cur.execute(sql_word, [tele, email,name, id])
         except:
             sql.closeCur(cur, conn)
             res['result'] = "2"
@@ -109,3 +119,24 @@ def checkInfoRight(tele,email):
                 return 4
         else:
             return 5 
+
+def znORen(string):
+    # 检查整个字符串是否为中文或英文
+    # :param string: 需要检查的字符串
+    # :return: bool
+    iszn=True
+    isen=True
+    for ch in string:
+        if ch<u'\u4e00' or ch > u'\u9fff':
+            iszn=False
+    if not iszn:
+        for en in string:
+            if ord(en)<65 or 90<ord(en)<97 or ord(en)>122
+                isen=False
+        if isen:
+            return 1
+        else:
+            return 2
+    else:
+        return 0
+    

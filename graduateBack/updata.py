@@ -48,7 +48,7 @@ def updataPDF():
         return response
     res = {}
     res['result'] = 1
-    res['msg'] = "你在干什么？？？？？？"
+    res['msg'] = "请上传正确的文件类型"
     response = Response(json.dumps(res))
     return response
 

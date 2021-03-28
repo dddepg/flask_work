@@ -11,10 +11,10 @@ def login():
     cur = sql.getCur(conn)
     username = request.form["username"]
     password = request.form["password"]
-    sql_word = "SELECT userPassword FROM user WHERE userName=%s"
+    sql_word = "SELECT * FROM user WHERE userName=%s"
     cur.execute(sql_word, username)
     results = cur.fetchone()
-    if (password == results[0]):
+    if (password == results[2]):
         res = {}
         res['result'] = "1"
         res['userID']=results[0]
@@ -25,7 +25,7 @@ def login():
         return response
     else:
         res = {}
-        res['data'] = "2"
+        res['result'] = "2"
         response = Response(json.dumps(res))
         sql.closeCur(cur, conn)
         return response
