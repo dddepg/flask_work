@@ -37,6 +37,9 @@ def addpdfInfo():
         sql_word3 = "INSINSERT INTO paperkey(id,key1,key2,key3,key4,key5) VALUES (%s,%s,%s,%s,%s,%s)"
         cur.execute(sql_word3, [results[0], paperKeyWord[0], paperKeyWord[1],
                     paperKeyWord[2], paperKeyWord[3], paperKeyWord[4]])
+        # 设置拥有关系
+        sql_word4 = "INSINSERT INTO paperowner(userid,paperid) VALUES (%s,%s)"
+        cur.execute(sql_word4, [results[0], ownerID])
     except:
         sql.closeCur(cur, conn)
         res['result'] = "2"

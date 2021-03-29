@@ -7,5 +7,6 @@ cors = CORS(app)
 import graduateBack.loginAndGetlines
 import graduateBack.getUserInfo
 import graduateBack.updata
-import graduateBack.download
+import graduateBack.downloadFile
 import graduateBack.addpdfInfo
+import graduateBack.getallpaper
