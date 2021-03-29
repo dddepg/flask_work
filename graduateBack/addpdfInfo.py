@@ -14,6 +14,7 @@ def addpdfInfo():
     title = request.form["title"]
     ownerID = request.form["ownerid"]
     url = request.form["url"]
+    name = request.form["name"]
     data = time.strftime("%Y.%m.%d", time.localtime())
     power = request.form["power"]
     # 共享状态
@@ -26,14 +27,14 @@ def addpdfInfo():
                     request.form["key3"], request.form["key4"], request.form["key5"]]
     try:
         # 将论文基本信息存入数据库
-        sql_word = ""
-        cur.execute(sql_word, [title, ownerID, url, data, power, paperType])
+        sql_word = "INSINSERT INTO paper(title,author,url,update,power,paperType) VALUES (%s,%s,%s,%s,%s,%s) "
+        cur.execute(sql_word, [title, name, url, data, power, paperType])
         # 获取新存入数据库的论文ID
-        sql_word2 = ""
-        cur.execute(sql_word2, [title, ownerID, url, data, power, paperType])
+        sql_word2 = "select id from paper WHERE title=%s,author=%s,url=%s,update=%s,power=%s,paperType=%s;"
+        cur.execute(sql_word2, [title, name, url, data, power, paperType])
         results = cur.fetchone()
         # 将关键字存入数据库
-        sql_word3 = ""
+        sql_word3 = "INSINSERT INTO paperkey(id,key1,key2,key3,key4,key5) VALUES (%s,%s,%s,%s,%s,%s)"
         cur.execute(sql_word3, [results[0], paperKeyWord[0], paperKeyWord[1],
                     paperKeyWord[2], paperKeyWord[3], paperKeyWord[4]])
     except:
