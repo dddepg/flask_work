@@ -27,19 +27,19 @@ def addpdfInfo():
                     request.form["key3"], request.form["key4"], request.form["key5"]]
     try:
         # 将论文基本信息存入数据库
-        sql_word = "INSINSERT INTO paper(title,author,url,update,power,paperType) VALUES (%s,%s,%s,%s,%s,%s) "
-        cur.execute(sql_word, [title, name, url, data, power, paperType])
+        sql_word = "INSERT  INTO paper(papertitle,paperauthor,paperurl,uploaddate,paperType,paperstate) VALUES (%s,%s,%s,%s,%s,%s) "
+        cur.execute(sql_word, [title, name, url, data, paperType,power])
         # 获取新存入数据库的论文ID
-        sql_word2 = "select id from paper WHERE title=%s,author=%s,url=%s,update=%s,power=%s,paperType=%s;"
+        sql_word2 = "select idpaper from paper WHERE papertitle=%s and paperauthor=%s and paperurl=%s and uploaddate=%s and paperstate=%s and paperType=%s;"
         cur.execute(sql_word2, [title, name, url, data, power, paperType])
         results = cur.fetchone()
         # 将关键字存入数据库
-        sql_word3 = "INSINSERT INTO paperkey(id,key1,key2,key3,key4,key5) VALUES (%s,%s,%s,%s,%s,%s)"
+        sql_word3 = "INSERT INTO paperkey(id,key1,key2,key3,key4,key5) VALUES (%s,%s,%s,%s,%s,%s)"
         cur.execute(sql_word3, [results[0], paperKeyWord[0], paperKeyWord[1],
                     paperKeyWord[2], paperKeyWord[3], paperKeyWord[4]])
         # 设置拥有关系
-        sql_word4 = "INSINSERT INTO paperowner(userid,paperid) VALUES (%s,%s)"
-        cur.execute(sql_word4, [results[0], ownerID])
+        sql_word4 = "INSERT  INTO paperowner(ownerid,paperid) VALUES (%s,%s)"
+        cur.execute(sql_word4, [ownerID, results[0]])
     except:
         sql.closeCur(cur, conn)
         res['result'] = "2"

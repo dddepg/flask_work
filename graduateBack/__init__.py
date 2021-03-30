@@ -9,4 +9,4 @@ import graduateBack.getUserInfo
 import graduateBack.updata
 import graduateBack.downloadFile
 import graduateBack.addpdfInfo
-import graduateBack.getallpaper
+# import graduateBack.getallpaper
