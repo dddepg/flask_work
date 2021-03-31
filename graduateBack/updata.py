@@ -33,11 +33,11 @@ def updataPDF():
     if file and allowed_file(file.filename):
         if no_chinese(file.filename):
             filename = secure_filename(file.filename)
-            if testexist(app.config['UPLOAD_FOLDER']+"\\"+filename):
+            while testexist(app.config['UPLOAD_FOLDER']+"\\"+filename):
                 filename=changeFileName(filename)
         else:
             filename = secure_filename(''.join(lazy_pinyin(file.filename)))
-            if testexist(app.config['UPLOAD_FOLDER']+"\\"+filename):
+            while testexist(app.config['UPLOAD_FOLDER']+"\\"+filename):
                 filename=changeFileName(filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         url = "https://www.dddepg.top/graduate_back/static/pdf/" + filename
