@@ -1,13 +1,14 @@
 import re
 import time
 from flask import Flask, request, Response, json
-# str="阿斯顿aaa"
-# rest=re.split(r'\/',str)
+str="https://www.dddepg.top/graduate_back/static/pdf/ceshiwenjian8.pdf"
+rest=re.split(r'\/',str)
+filen=re.split(r'\.',rest[-1])
 # iszn=True
 # for ch in str:
 #     if ch<u'\u4e00' or ch > u'\u9fff':
 #         iszn=False
-# print(rest[-1])
+print(filen[0])
 # print(rest[1]+"2"+"."+rest[2])
 # print(rest[0]=="" and rest[4]=="" and rest[3]=="com")
 # print(iszn)
@@ -30,15 +31,15 @@ from flask import Flask, request, Response, json
 # else:
 #     print(0)
 
-res = {}
-results=[["tit1","url1"],["tit2","url2"],["tit3","url3"],["tit4","url4"]]
-reslist = list()
-for row in results:
-    res["title"] = row[0]
-    res["URL"] = row[1]
-    reslist.append(res.copy())
-data=json.dumps(reslist)
-res2={}
-res2["result"]="1"
-res2["data"]=reslist
-print(json.dumps(res2))
+# res = {}
+# results=[["tit1","url1"],["tit2","url2"],["tit3","url3"],["tit4","url4"]]
+# reslist = list()
+# for row in results:
+#     res["title"] = row[0]
+#     res["URL"] = row[1]
+#     reslist.append(res.copy())
+# data=json.dumps(reslist)
+# res2={}
+# res2["result"]="1"
+# res2["data"]=reslist
+# print(json.dumps(res2))

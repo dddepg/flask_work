@@ -13,7 +13,7 @@ def getMyPaper():
     try:
         sql_word = "SELECT paper.papertitle,paper.paperurl,\
             paper.uploaddate,paper.idpaper FROM paper \
-                join paperowner on paper.idpaper=paperowne.paperid\
+                join paperowner on paper.idpaper=paperowner.paperid\
                      where paperowner.ownerid=%s"
         cur.execute(sql_word,id)
         results = cur.fetchall()
@@ -39,3 +39,33 @@ def getMyPaper():
         response = Response(json.dumps(res2))
         sql.closeCur(cur, conn)
         return response
+
+
+@app.route('/delMyPaper', methods=["POST"])
+def delMyPaper():
+    conn = sql.getConn()
+    cur = sql.getCur(conn)
+    userid= request.form["userid"]
+    paperid=request.form["paperid"]
+    try:
+        sql1="DELETE FROM paperowner WHERE ownerid=%s and paperid=%s"
+        cur.execute(sql1,[userid,paperid])
+        sql2="DELETE FROM paperkey WHERE id=%s"
+        cur.execute(sql2,[paperid])
+        sql3="DELETE FROM paper WHERE idpaper=%s"
+        cur.execute(sql3,[paperid])
+    except:
+        res2={}
+        res2['result']="2"
+        res2['msg']="啊哦，数据库出错了"
+        response = Response(json.dumps(res2))
+        sql.closeCur(cur, conn)
+        return response
+    else:
+        res2={}
+        res2['result']="1"
+        res2['msg']="删除成功"
+        response = Response(json.dumps(res2))
+        sql.closeCur(cur, conn)
+        return response
+

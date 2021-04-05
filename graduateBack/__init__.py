@@ -10,3 +10,5 @@ import graduateBack.updata
 import graduateBack.downloadFile
 import graduateBack.addpdfInfo
 import graduateBack.getallPaper
+import graduateBack.updatePdfInfo
+import graduateBack.getMyPaper
