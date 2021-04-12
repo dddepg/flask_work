@@ -5,34 +5,25 @@ import re
 import time
 
 
-@app.route('/getpdfInfo', methods=["POST"])
-def getpdfInfo():
+@app.route('/updatestate', methods=["POST"])
+def updatestate():
     conn = sql.getConn()
     cur = sql.getCur(conn)
-    paperid= request.form["paperid"]
+    paperid= request.form["id"]
+    paperstate=request.form["state"]
     res={}
     try:
-        sql_word="SELECT paper.*,paperkey.* from paper join paperkey on paper.idpaper=paperkey.id where idpaper=%s"
-        cur.execute(sql_word,paperid)
-        results = cur.fetchall()
-        res["result"]=1
-        res["title"]=results[1]
-        res["author"]=results[2]
-        res["url"]=results[3]
-        res["type"]=results[5]
-        res["state"]=results[6]
-        res["key1"]=results[8]
-        res["key2"]=results[9]
-        res["key3"]=results[10]
-        res["key4"]=results[11]
-        res["key5"]=results[12]
+        sql_word="UPDATE paper SET paperstate=%s WHERE idpaper=%s"
+        cur.execute(sql_word,[paperstate,paperid])
     except:
-        res['result']="2"
+        res['result']="1"
         res['msg']="啊哦，数据库出错了"
         response = Response(json.dumps(res))
         sql.closeCur(cur, conn)
         return response
     else:
+        res['result']="0"
+        res['msg']="修改成功"
         response = Response(json.dumps(res))
         sql.closeCur(cur, conn)
         return response

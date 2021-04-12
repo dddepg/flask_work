@@ -1,18 +1,20 @@
 import re
 import time
 from flask import Flask, request, Response, json
-str="https://www.dddepg.top/graduate_back/static/pdf/ceshiwenjian8.pdf"
-rest=re.split(r'\/',str)
-filen=re.split(r'\.',rest[-1])
+str="2021-04-13T16:00:00.000Z"
+rest=re.split(r'(.*)-(.*)-(.*)T',str)
+# filen=re.split(r'\.',rest[-1])
 # iszn=True
 # for ch in str:
 #     if ch<u'\u4e00' or ch > u'\u9fff':
 #         iszn=False
-print(filen[0])
-# print(rest[1]+"2"+"."+rest[2])
+# print(filen[0])
+print(rest[1]+"年"+rest[2]+"月"+rest[3]+"日")
+print(rest)
 # print(rest[0]=="" and rest[4]=="" and rest[3]=="com")
 # print(iszn)
-# print(time.strftime("%Y.%m.%d", time.localtime()))
+# print(time.strftime("%Y%m%d%H%M%S", time.localtime()))
+# print(time.strftime("%Y-%m-%d", time.localtime()))
 # print(all(ord(c) < 128 for c in str))
 # string="asdasdasd"
 # iszn=True

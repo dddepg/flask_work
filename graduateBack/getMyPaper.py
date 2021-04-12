@@ -12,7 +12,7 @@ def getMyPaper():
     id= request.form["id"]
     try:
         sql_word = "SELECT paper.papertitle,paper.paperurl,\
-            paper.uploaddate,paper.idpaper FROM paper \
+            paper.uploaddate,paper.idpaper,paper.paperstate FROM paper \
                 join paperowner on paper.idpaper=paperowner.paperid\
                      where paperowner.ownerid=%s"
         cur.execute(sql_word,id)
@@ -24,6 +24,7 @@ def getMyPaper():
             res["URL"] = row[1]
             res["date"] = row[2]
             res["id"] = row[3]
+            res["state"] = row[4]
             reslist.append(res.copy())
     except:
         res2={}
