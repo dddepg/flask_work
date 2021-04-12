@@ -31,7 +31,7 @@ def creatTable():
         filename = secure_filename(''.join(lazy_pinyin(thetabletitle)))
         while testexist(app.config['WORD_FOLDER'] + "\\" + filename):
             filename = changeFileName(filename)
-    url = "https://www.dddepg.top/graduate_back/static/word/" + filename
+    url = "https://www.dddepg.top/graduate_back/static/word/"+filename+".docx"
     try:
         sql_word = "INSERT INTO thetable(idthetable,thetabletitle,\
             thetablcreatdate,thetableurl,ownerid)\
