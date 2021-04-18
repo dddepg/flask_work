@@ -13,3 +13,4 @@ import graduateBack.getallPaper
 import graduateBack.updatePdfInfo
 import graduateBack.getMyPaper
 import graduateBack.tableManage
+import graduateBack.managePass

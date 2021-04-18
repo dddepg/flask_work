@@ -1,6 +1,7 @@
 import re
 import time
 from flask import Flask, request, Response, json
+import sql
 str="2021-04-13T16:00:00.000Z"
 rest=re.split(r'(.*)-(.*)-(.*)T',str)
 # filen=re.split(r'\.',rest[-1])
@@ -9,8 +10,14 @@ rest=re.split(r'(.*)-(.*)-(.*)T',str)
 #     if ch<u'\u4e00' or ch > u'\u9fff':
 #         iszn=False
 # print(filen[0])
-print(rest[1]+"年"+rest[2]+"月"+rest[3]+"日")
-print(rest)
+# print(rest[1]+"年"+rest[2]+"月"+rest[3]+"日")
+# print(rest)
+
+i = 17057004
+while i <= 17057013:
+    print(i)
+    i = i + 1
+    
 # print(rest[0]=="" and rest[4]=="" and rest[3]=="com")
 # print(iszn)
 # print(time.strftime("%Y%m%d%H%M%S", time.localtime()))

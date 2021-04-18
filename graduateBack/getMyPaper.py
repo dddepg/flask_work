@@ -41,6 +41,41 @@ def getMyPaper():
         sql.closeCur(cur, conn)
         return response
 
+@app.route('/getAllUserPaper', methods=["GET"])
+def getAllUserPaper():
+    conn = sql.getConn()
+    cur = sql.getCur(conn)
+    try:
+        sql_word = "SELECT paper.papertitle,paper.paperurl,\
+            paper.uploaddate,paper.idpaper,paper.paperstate,paperowner.ownerid FROM paper \
+                join paperowner on paper.idpaper=paperowner.paperid"
+        cur.execute(sql_word)
+        results = cur.fetchall()
+        res = {}
+        reslist = list()
+        for row in results:
+            res["title"] = row[0]
+            res["URL"] = row[1]
+            res["date"] = row[2]
+            res["id"] = row[3]
+            res["state"] = row[4]
+            res['ownerid']=row[5]
+            reslist.append(res.copy())
+    except:
+        res2={}
+        res2['result']="2"
+        res2['msg']="啊哦，数据库出错了"
+        response = Response(json.dumps(res2))
+        sql.closeCur(cur, conn)
+        return response
+    else:
+        res2={}
+        res2['result']="1"
+        res2['data']=reslist
+        response = Response(json.dumps(res2))
+        sql.closeCur(cur, conn)
+        return response
+
 
 @app.route('/delMyPaper', methods=["POST"])
 def delMyPaper():
