@@ -17,9 +17,9 @@ def login():
     if (password == results[2]):
         res = {}
         res['result'] = "1"
-        res['userID']=results[0]
-        res['userPower']=results[3]
-        res['userTrueName']=results[4]
+        res['userID'] = results[0]
+        res['userPower'] = results[3]
+        res['userTrueName'] = results[4]
         response = Response(json.dumps(res))
         sql.closeCur(cur, conn)
         return response
@@ -43,10 +43,12 @@ def newly():
     for row in results:
         res["title"] = row[1]
         res["URL"] = row[2]
+        res["id"] = row[0]
         reslist.append(res.copy())
     response = Response(json.dumps(reslist))
     sql.closeCur(cur, conn)
     return response
+
 
 @app.route('/allnewly')
 def allnewly():
@@ -60,6 +62,7 @@ def allnewly():
     for row in results:
         res["title"] = row[1]
         res["URL"] = row[2]
+        res["id"] = row[0]
         reslist.append(res.copy())
     response = Response(json.dumps(reslist))
     sql.closeCur(cur, conn)
@@ -83,6 +86,7 @@ def tread():
     sql.closeCur(cur, conn)
     return response
 
+
 @app.route('/alltread')
 def alltread():
     conn = sql.getConn()
@@ -95,7 +99,35 @@ def alltread():
     for row in results:
         res["title"] = row[1]
         res["URL"] = row[2]
+        res["id"] = row[0]
         reslist.append(res.copy())
     response = Response(json.dumps(reslist))
     sql.closeCur(cur, conn)
     return response
+
+
+@app.route('/deleNewsApi', methods=["POST"])
+def deleNewsApi():
+    conn = sql.getConn()
+    cur = sql.getCur(conn)
+    res = {}
+    tehtype = int(request.form["type"])
+    try:
+        if (tehtype == 1):
+            sql_word = "DELETE FROM newly WHERE id=%s "
+            cur.execute(sql_word, [request.form["id"]])
+        else:
+            sql_word = "DELETE FROM tread WHERE id=%s "
+            cur.execute(sql_word, [request.form["id"]])
+    except:
+        res['result'] = "1"
+        res['msg'] = "啊哦，数据库出错了"
+        response = Response(json.dumps(res))
+        sql.closeCur(cur, conn)
+        return response
+    else:
+        res['result'] = "0"
+        res['msg'] = "删除成功"
+        response = Response(json.dumps(res))
+        sql.closeCur(cur, conn)
+        return response
